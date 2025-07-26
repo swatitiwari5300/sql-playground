@@ -41,3 +41,31 @@ BEGIN
 
 END;
 $$;
+
+-- pl/sql for fetching a record from table
+
+DO $$ 
+DECLARE
+	c_name employees.name%TYPE;
+	c_age employees.age%TYPE;
+BEGIN
+	SELECT name, age into c_name, c_age from employees where ID = '1';
+	RAISE NOTICE 'name: % , age: %', c_name, c_age;
+END;
+$$;
+
+-- if-else conditions in pl/sql
+
+DO $$
+DECLARE 
+ salary INTEGER := 1000;
+BEGIN
+	IF salary>3000 THEN
+		RAISE NOTICE 'SALARY IS VERY HIGH';
+	ELSEIF salary > 2000 THEN 
+		RAISE NOTICE 'SALARY IS HIGH';
+	ELSE 
+		RAISE NOTICE 'SALARY IS FAIR';
+	END IF;
+END;
+$$;

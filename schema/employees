@@ -1,0 +1,16 @@
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50),
+    age INTEGER,
+    address VARCHAR(100),
+    salary NUMERIC(10, 2)
+);
+
+
+INSERT INTO employees (name, age, address, salary) VALUES
+('Biplab', 31, 'Bengaluru', 30000),
+('Ambit', 30, 'Delhi', 32000),
+('Disha', 29, 'Ahmedabad', 40000),
+('Amol', 24, 'Patna', 50000),
+('Nitesh', 23, 'Chennai', 54000),
+('Pooja', 22, 'Prayagraj', 66000);
