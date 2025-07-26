@@ -1,0 +1,43 @@
+-- Syntax of the Postgres PL/SQL 
+
+DO $$
+DECLARE
+    message VARCHAR(20) := 'Hello, world';
+BEGIN
+    RAISE NOTICE '%', message;
+END;
+$$;
+
+
+-- adding two numbers
+DO $$
+DECLARE
+    a INTEGER := 10;
+	b INTEGER := 20;
+	c INTEGER;
+BEGIN
+	c := a+b;
+    RAISE NOTICE '%', c;
+END;
+$$;
+
+-- scope of varibales
+DO $$
+DECLARE
+  num1 INTEGER := 95;
+  num2 INTEGER := 85;
+BEGIN
+  RAISE NOTICE 'Outer Variable num1: %', num1;
+  RAISE NOTICE 'Outer Variable num2: %', num2;
+
+  -- Inner block
+  DECLARE
+    num1 INTEGER := 195;
+    num2 INTEGER := 185;
+  BEGIN
+    RAISE NOTICE 'Inner Variable num1: %', num1;
+    RAISE NOTICE 'Inner Variable num2: %', num2;
+  END;
+
+END;
+$$;
