@@ -94,76 +94,48 @@ $$;
 -- BASIC LOOP
 
 DO $$
-DECLARE 
- grade CHAR := 'A';
+DECLARE
+  counter integer := 0;
 BEGIN
-	CASE grade
-		WHEN 'A' THEN
-			RAISE NOTICE 'EXCELLENT';
-		WHEN 'B' THEN
-			RAISE NOTICE 'GOOD';
-		WHEN 'C' THEN
-			RAISE NOTICE 'AVERAGE';
-		ELSE
-			RAISE NOTICE 'FAIL';
-	END CASE;
-END;
-$$;
+  LOOP
+    counter := counter + 1;
+    EXIT WHEN counter > 5;
+  END LOOP;
+END $$;
+
 
 -- FOR loop
 DO $$
-DECLARE 
- grade CHAR := 'A';
 BEGIN
-	CASE grade
-		WHEN 'A' THEN
-			RAISE NOTICE 'EXCELLENT';
-		WHEN 'B' THEN
-			RAISE NOTICE 'GOOD';
-		WHEN 'C' THEN
-			RAISE NOTICE 'AVERAGE';
-		ELSE
-			RAISE NOTICE 'FAIL';
-	END CASE;
-END;
-$$;
+  FOR idx IN 2..10 BY 2 LOOP
+    RAISE NOTICE 'Even: %', idx;
+  END LOOP;
+END $$;
+
 
 -- WHILE LOOP
 DO $$
-DECLARE 
- grade CHAR := 'A';
+DECLARE
+  idx integer := 1;
 BEGIN
-	CASE grade
-		WHEN 'A' THEN
-			RAISE NOTICE 'EXCELLENT';
-		WHEN 'B' THEN
-			RAISE NOTICE 'GOOD';
-		WHEN 'C' THEN
-			RAISE NOTICE 'AVERAGE';
-		ELSE
-			RAISE NOTICE 'FAIL';
-	END CASE;
-END;
-$$;
+  WHILE idx <= 5 LOOP
+    RAISE NOTICE 'While loop: %', idx;
+    idx := idx + 1;
+  END LOOP;
+END $$;
 
 -- FOREACH LOOP
 
 DO $$
-DECLARE 
- grade CHAR := 'A';
+DECLARE
+  arr integer[] := ARRAY[10,20,30];
+  val integer;
 BEGIN
-	CASE grade
-		WHEN 'A' THEN
-			RAISE NOTICE 'EXCELLENT';
-		WHEN 'B' THEN
-			RAISE NOTICE 'GOOD';
-		WHEN 'C' THEN
-			RAISE NOTICE 'AVERAGE';
-		ELSE
-			RAISE NOTICE 'FAIL';
-	END CASE;
-END;
-$$;
+  FOREACH val IN ARRAY arr LOOP
+    RAISE NOTICE 'Value: %', val;
+  END LOOP;
+END $$;
+
 
 -- FOR LOOP OVER SELECT QUERY
 DO $$
