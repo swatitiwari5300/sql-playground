@@ -146,3 +146,35 @@ BEGIN
 END;
 $$;
 
+-- FOREACH LOOP
+
+DO $$
+DECLARE 
+ grade CHAR := 'A';
+BEGIN
+	CASE grade
+		WHEN 'A' THEN
+			RAISE NOTICE 'EXCELLENT';
+		WHEN 'B' THEN
+			RAISE NOTICE 'GOOD';
+		WHEN 'C' THEN
+			RAISE NOTICE 'AVERAGE';
+		ELSE
+			RAISE NOTICE 'FAIL';
+	END CASE;
+END;
+$$;
+
+-- FOR LOOP OVER SELECT QUERY
+DO $$
+DECLARE
+    rec RECORD;
+BEGIN
+    FOR rec IN
+        SELECT employee_id, full_name FROM employees ORDER BY employee_id DESC LIMIT 10
+    LOOP
+        RAISE NOTICE '% - %', rec.employee_id, rec.full_name;
+    END LOOP;
+END $$;
+
+
