@@ -62,3 +62,15 @@ update Orders o
 set total_amount = total_amount * 0.9
 from  Customers c where c.customer_id = o.customer_id
 and c.city = 'Delhi' and o.total_amount > 2000;
+
+--Increase Price of 'Electronics' Products if Stock < 20
+-- Increase by:
+-- 15% if stock < 10
+-- 10% if stock between 10 and 19.
+
+update Products
+set price = 
+case 
+    when stock_quantity < 10 then price * 1.10
+    when stock_quantity between 10 and then 19 price * 1.15
+    end;
