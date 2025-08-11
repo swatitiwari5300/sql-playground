@@ -46,7 +46,7 @@ and p.stock_quantity >= od.quantity;
 
 -- 'Silver' otherwise.
 
-alter table Customers add coloumn customer_type varchar(200);
+alter table Customers add column customer_type varchar(20);
 
 update Customers
 set customer_type =
@@ -55,3 +55,10 @@ CASE
     when loyalty_points >= 100 then 'Gold'
     else 'Silver'
     END;
+
+--  Give 10% Discount to Orders from 'Delhi' if Total Amount > 2000
+
+update Orders o
+set total_amount = total_amount * 0.9
+from  Customers c where c.customer_id = o.customer_id
+and c.city = 'Delhi' and o.total_amount > 2000;
