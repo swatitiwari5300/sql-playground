@@ -107,3 +107,35 @@ case
 -- 'Platinum' if > 200 and ≤ 300
 -- 'Gold' if > 100 and ≤ 200
 -- 'Silver' otherwise.
+
+update Customers
+set customer_type = 
+case
+    when loyalty_points > 300 then 'Diamond'
+    when loyalty_points > 200 and loyalty_points <= 300 then 'Platinum'
+    when loyalty_points > 100 and loyalty_points <= 200 then 'Gold'
+    else 'Silver'
+end;
+
+
+-- Apply Variable Discounts to Electronics
+-- If price > 30000 → 20% off
+-- If price between 10000–30000 → 15% off
+-- Otherwise 5% off.
+
+update Products
+set price =
+case
+ when price > 30000 then price * 0.8
+ when price between 10000 and 30000 then price * 0.85
+ else price * 0.95
+end;
+
+-- Late Order Penalty
+-- If order date is more than 30 days ago and status != 'Delivered',
+-- set status = 'Late'.
+
+update Orders
+set status = 'Late'
+where status <> 'Delivered'
+and order_date < CURRENT_DATE - INTERVAL '30 days';
