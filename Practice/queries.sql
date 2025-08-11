@@ -27,3 +27,31 @@ update Products p
 set stock_quantity = stock_quantity - o.order_details.quantity
 from order_details o where p.product_id = o.product_id 
 and o.order_id in (select order_id from Orders where status = 'Pending');
+
+-- Mark Orders as 'Shipped' If Stock Is Available
+-- If all products in an order have stock_quantity >= quantity, change status to 'Shipped'.
+
+update Orders o 
+set status = 'Shipped'
+from Products p join order_details od on p.product_id = od.product_id
+where  o.order_id = od.order_id
+and p.stock_quantity >= od.quantity;
+
+-- Add a New Column and Set Values Based on Condition
+-- Add a column customer_type in Customers:
+
+-- 'Platinum' if loyalty_points >= 200
+
+-- 'Gold' if loyalty_points >= 100 and < 200
+
+-- 'Silver' otherwise.
+
+alter table Customers add coloumn customer_type varchar(200);
+
+update Customers
+set customer_type =
+CASE
+    when loyalty_points >= 200 then 'Platinum'
+    when loyalty_points >= 100 then 'Gold'
+    else 'Silver'
+    END;
