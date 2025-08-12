@@ -165,3 +165,8 @@ on c.customer_id = o.customer_id where o.customer_id = null;
 select employee_id, department_id, salary from employees e
 where salary > (select avg(salary) from employees where department_id = e.department_id)
 
+--Get the customer with the highest total purchase amount.
+
+select customer_id, sum(amount) as total_amount
+from orders group by customer_id order by total_amount desc
+limit 1;
