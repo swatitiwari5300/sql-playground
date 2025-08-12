@@ -139,3 +139,29 @@ update Orders
 set status = 'Late'
 where status <> 'Delivered'
 and order_date < CURRENT_DATE - INTERVAL '30 days';
+
+
+--Retrieve the second highest salary from employees.
+
+select salary from employees order by salary desc
+limit 1 offset 1;
+
+--Get all employees who joined in the last 30 days.
+
+select * from employee where joining_date >= current_date - interval '30 days';
+
+
+--Count number of orders per customer.
+
+select customer_id, count(order) from orders 
+group by customer_id;
+
+-- Find customers without orders.
+select c.customer_id, c.customer_name 
+from customer c left join orders o 
+on c.customer_id = o.customer_id where o.customer_id = null;
+
+--Retrieve employees earning more than their department's average salary.
+select employee_id, department_id, salary from employees e
+where salary > (select avg(salary) from employees where department_id = e.department_id)
+
