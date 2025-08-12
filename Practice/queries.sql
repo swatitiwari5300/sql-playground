@@ -170,3 +170,44 @@ where salary > (select avg(salary) from employees where department_id = e.depart
 select customer_id, sum(amount) as total_amount
 from orders group by customer_id order by total_amount desc
 limit 1;
+
+--Find all products priced between 500 and 1000
+
+select * from products where price between 500 and 1000;
+
+--List all employees whose name starts with 'A'
+
+select * from employees where name like 'A%';
+
+--Find the department with the highest number of employees
+
+select employee_id , count(*) as emp_count from employees
+group by employee_id order by emp_count desc limit 1;
+
+--List orders with customer names
+select c.name , o.amount, o.order_id 
+from orders o join customers c on o.customer_id = c.customer_id;
+
+--Find customers who bought Product ID = 101
+select c.name, c.customer_id from customer c join order o 
+on c.customer_id = o.customer_id join order_details od
+on o.order_id = od.order_id and od.product_id = '101';
+
+--Find customers who bought Product ID = 101
+select * from employee where salary > (select avg(salary) from employees);
+
+--List products that have never been ordered
+select * from products where product_id not in
+(select distinct product_id from order_details);
+
+
+--Increase all salaries by 10% in the Sales department
+
+update employees
+set salary = salary * 1.10
+where department_id =
+ (select department_id from department where name = 'Sales');
+
+ --Set stock to 0 for discontinued products
+ update products
+ set stock = 0 where discontinued = true;
