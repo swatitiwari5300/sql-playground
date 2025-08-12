@@ -211,3 +211,22 @@ where department_id =
  --Set stock to 0 for discontinued products
  update products
  set stock = 0 where discontinued = true;
+
+
+ --Give bonus to employees with above-average performance
+
+update employee e
+set bonus = bonus + 5000
+from performance p
+where p.employee_id = e.employee_id and
+p.rating > (select avg(rating) from performance); 
+
+--Update salaries based on performance rating
+
+update employee
+set salary = salary +
+case
+    when rating = 'A' then 5000
+    when rating = 'B' then 3000
+    else 2000
+end;
